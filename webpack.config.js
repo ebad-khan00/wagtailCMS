@@ -31,9 +31,12 @@ const options = {
         // directly by templates via {% static 'css/...' %} rather than imported
         // into main.scss.
         {
-         from: path.resolve(`./static_src/styles`),
-         to: path.resolve(`./static_compiled/css`),
-        },
+ from: path.resolve(`./static_src/styles`),
+ to: path.resolve(`./static_compiled/css`),
+ globOptions: {
+     ignore: ['**/flaticon.css'],
+ },
+},
         // Vendor scripts referenced directly by templates via {% static 'js/...' %}
         // rather than imported into main.js. main.js and its imported components are
         // excluded since webpack already emits those as js/main.js.
