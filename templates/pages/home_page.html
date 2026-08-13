@@ -1,0 +1,867 @@
+
+{% extends "base_page.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'css/tinyslider.css' %}">
+<link rel="stylesheet" href="{% static 'css/aos.css' %}">
+<link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css' %}">
+<link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/theme.css' %}">
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<!-- =========================================================
+     HERO SECTION
+========================================================= -->
+
+<div class="hero">
+
+    <div class="hero-slide">
+
+        {% if page.hero_background %}
+
+            <div
+                class="img overlay"
+                style="background-image: url('{% image page.hero_background original as hero_image %}{{ hero_image.url }}')"
+            ></div>
+
+            <div
+                class="img overlay"
+                style="background-image: url('{% image page.hero_background original as hero_image %}{{ hero_image.url }}')"
+            ></div>
+
+            <div
+                class="img overlay"
+                style="background-image: url('{% image page.hero_background original as hero_image %}{{ hero_image.url }}')"
+            ></div>
+
+        {% else %}
+
+            <div
+                class="img overlay"
+                style="background-image: url('{% static 'images/hero_bg_1.jpg' %}')"
+            ></div>
+
+            <div
+                class="img overlay"
+                style="background-image: url('{% static 'images/hero_bg_1.jpg' %}')"
+            ></div>
+
+            <div
+                class="img overlay"
+                style="background-image: url('{% static 'images/hero_bg_1.jpg' %}')"
+            ></div>
+
+        {% endif %}
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="row justify-content-center align-items-center">
+
+            <div class="col-lg-9 text-center">
+
+                <h1 class="heading" data-aos="fade-up">
+                    {{ page.hero_title }}
+                </h1>
+
+
+                <form
+                    action="#"
+                    class="narrow-w form-search d-flex align-items-stretch mb-3"
+                    data-aos="fade-up"
+                    data-aos-delay="200"
+                >
+
+                    <input
+                        type="text"
+                        class="form-control px-4"
+                        placeholder="{{ page.search_placeholder }}"
+                    />
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        {{ page.search_button_text }}
+                    </button>
+
+                </form>
+
+
+                {% if page.hero_cta %}
+
+                    {% for block in page.hero_cta %}
+
+                        {% if block.block_type == "link" %}
+                            {{ block }}
+                        {% endif %}
+
+                    {% endfor %}
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     POPULAR PROPERTIES
+========================================================= -->
+
+<div class="section">
+
+    <div class="container">
+
+        <div class="row mb-5 align-items-center">
+
+            <div class="col-lg-6">
+
+                <h2 class="font-weight-bold text-primary heading">
+                    {{ page.properties_title }}
+                </h2>
+
+            </div>
+
+
+            <div class="col-lg-6 text-lg-end">
+
+                {% if page.properties_button_url %}
+
+                    <p>
+                        <a
+                            href="{{ page.properties_button_url }}"
+                            class="btn btn-primary text-white py-3 px-4"
+                        >
+                            {{ page.properties_button_text }}
+                        </a>
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <div class="row">
+
+            <div class="col-12">
+
+                <div class="property-slider-wrap">
+
+                    <div class="property-slider">
+
+
+                        {% for block in page.properties %}
+
+                            {% if block.block_type == "property" %}
+
+                                {% with property=block.value %}
+
+                                    <div class="property-item">
+
+
+                                        {% if property.image %}
+
+                                            <a
+                                                href="{{ property.link|default:'#' }}"
+                                                class="img"
+                                            >
+                                                {% image property.image fill-800x600 class="img-fluid" %}
+                                            </a>
+
+                                        {% endif %}
+
+
+                                        <div class="property-content">
+
+                                            <div class="price mb-2">
+
+                                                <span>
+                                                    {{ property.price }}
+                                                </span>
+
+                                            </div>
+
+
+                                            <div>
+
+                                                <span class="d-block mb-2 text-black-50">
+                                                    {{ property.address }}
+                                                </span>
+
+
+                                                <span class="city d-block mb-3">
+                                                    {{ property.city }}
+                                                </span>
+
+
+                                                <div class="specs d-flex mb-4">
+
+                                                    <span class="d-block d-flex align-items-center me-3">
+
+                                                        <span class="icon-bed me-2"></span>
+
+                                                        <span class="caption">
+                                                            {{ property.beds }}
+                                                        </span>
+
+                                                    </span>
+
+
+                                                    <span class="d-block d-flex align-items-center">
+
+                                                        <span class="icon-bath me-2"></span>
+
+                                                        <span class="caption">
+                                                            {{ property.baths }}
+                                                        </span>
+
+                                                    </span>
+
+                                                </div>
+
+
+                                                {% if property.link %}
+
+                                                    <a
+                                                        href="{{ property.link }}"
+                                                        class="btn btn-primary py-2 px-3"
+                                                    >
+                                                        See details
+                                                    </a>
+
+                                                {% endif %}
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                {% endwith %}
+
+                            {% endif %}
+
+                        {% endfor %}
+
+
+                    </div>
+
+
+                    <div
+                        id="property-nav"
+                        class="controls"
+                        tabindex="0"
+                        aria-label="Carousel Navigation"
+                    >
+
+                        <span
+                            class="prev"
+                            data-controls="prev"
+                            aria-controls="property"
+                            tabindex="-1"
+                        >
+                            Prev
+                        </span>
+
+
+                        <span
+                            class="next"
+                            data-controls="next"
+                            aria-controls="property"
+                            tabindex="-1"
+                        >
+                            Next
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     FEATURES
+========================================================= -->
+
+<section class="features-1">
+
+    <div class="container">
+
+        <div class="row">
+
+
+            {% for block in page.features %}
+
+                {% if block.block_type == "feature" %}
+
+                    {% with feature=block.value %}
+
+                        <div
+                            class="col-6 col-lg-3"
+                            data-aos="fade-up"
+                        >
+
+                            <div class="box-feature">
+
+
+                                {% if feature.icon %}
+
+                                    <span class="{{ feature.icon }}"></span>
+
+                                {% endif %}
+
+
+                                <h3 class="mb-3">
+                                    {{ feature.title }}
+                                </h3>
+
+
+                                <p>
+                                    {{ feature.description }}
+                                </p>
+
+
+                                {% if feature.link %}
+
+                                    <p>
+
+                                        <a
+                                            href="{{ feature.link }}"
+                                            class="learn-more"
+                                        >
+                                            {{ feature.link_text }}
+                                        </a>
+
+                                    </p>
+
+                                {% endif %}
+
+
+                            </div>
+
+                        </div>
+
+                    {% endwith %}
+
+                {% endif %}
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     TESTIMONIALS
+========================================================= -->
+
+<div class="section sec-testimonials">
+
+    <div class="container">
+
+
+        <div class="row mb-5 align-items-center">
+
+            <div class="col-md-6">
+
+                <h2 class="font-weight-bold heading text-primary mb-4 mb-md-0">
+                    {{ page.testimonials_title }}
+                </h2>
+
+            </div>
+
+
+            <div class="col-md-6 text-md-end">
+
+                <div id="testimonial-nav">
+
+                    <span
+                        class="prev"
+                        data-controls="prev"
+                    >
+                        Prev
+                    </span>
+
+                    <span
+                        class="next"
+                        data-controls="next"
+                    >
+                        Next
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="testimonial-slider-wrap">
+
+            <div class="testimonial-slider">
+
+
+                {% for block in page.testimonials %}
+
+                    {% if block.block_type == "testimonial" %}
+
+                        {% with testimonial=block.value %}
+
+                            <div class="item">
+
+                                <div class="testimonial">
+
+
+                                    {% if testimonial.image %}
+
+                                        {% image testimonial.image fill-200x200 class="img-fluid rounded-circle w-25 mb-4" %}
+
+                                    {% endif %}
+
+
+                                    <div class="rate">
+
+                                        {% if testimonial.rating >= 1 %}
+                                            <span class="icon-star text-warning"></span>
+                                        {% endif %}
+
+                                        {% if testimonial.rating >= 2 %}
+                                            <span class="icon-star text-warning"></span>
+                                        {% endif %}
+
+                                        {% if testimonial.rating >= 3 %}
+                                            <span class="icon-star text-warning"></span>
+                                        {% endif %}
+
+                                        {% if testimonial.rating >= 4 %}
+                                            <span class="icon-star text-warning"></span>
+                                        {% endif %}
+
+                                        {% if testimonial.rating >= 5 %}
+                                            <span class="icon-star text-warning"></span>
+                                        {% endif %}
+
+                                    </div>
+
+
+                                    <h3 class="h5 text-primary mb-4">
+                                        {{ testimonial.name }}
+                                    </h3>
+
+
+                                    <blockquote>
+
+                                        <p>
+                                            &ldquo;{{ testimonial.content }}&rdquo;
+                                        </p>
+
+                                    </blockquote>
+
+
+                                    <p class="text-black-50">
+                                        {{ testimonial.designation }}
+                                    </p>
+
+
+                                </div>
+
+                            </div>
+
+                        {% endwith %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     FIND YOUR HOME
+========================================================= -->
+
+<div class="section section-4 bg-light">
+
+    <div class="container">
+
+
+        <div class="row justify-content-center text-center mb-5">
+
+            <div class="col-lg-5">
+
+                <h2 class="font-weight-bold heading text-primary mb-4">
+                    {{ page.find_home_title }}
+                </h2>
+
+
+                <p class="text-black-50">
+                    {{ page.find_home_description }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="row justify-content-between mb-5">
+
+
+            <div class="col-lg-7 mb-5 mb-lg-0 order-lg-2">
+
+                {% if page.find_home_image %}
+
+                    <div class="img-about dots">
+
+                        {% image page.find_home_image original class="img-fluid" %}
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="col-lg-4">
+
+
+                {% for block in page.home_features %}
+
+                    {% if block.block_type == "feature" %}
+
+                        {% with feature=block.value %}
+
+                            <div class="d-flex feature-h">
+
+                                <span class="wrap-icon me-3">
+
+                                    {% if feature.icon %}
+                                        <span class="{{ feature.icon }}"></span>
+                                    {% endif %}
+
+                                </span>
+
+
+                                <div class="feature-text">
+
+                                    <h3 class="heading">
+                                        {{ feature.title }}
+                                    </h3>
+
+
+                                    <p class="text-black-50">
+                                        {{ feature.description }}
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        {% endwith %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- COUNTERS -->
+
+        <div class="row section-counter mt-5">
+
+
+            {% for block in page.counters %}
+
+                {% if block.block_type == "counter" %}
+
+                    {% with counter=block.value %}
+
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-3">
+
+                            <div class="counter-wrap mb-5 mb-lg-0">
+
+                                <span class="number">
+
+                                    <span class="countup text-primary">
+                                        {{ counter.number }}
+                                    </span>
+
+                                </span>
+
+
+                                <span class="caption text-black-50">
+                                    {{ counter.label }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    {% endwith %}
+
+                {% endif %}
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     CTA
+========================================================= -->
+
+<div class="section">
+
+    <div
+        class="row justify-content-center footer-cta"
+        data-aos="fade-up"
+    >
+
+        <div class="col-lg-7 mx-auto text-center">
+
+
+            <h2 class="mb-4">
+                {{ page.cta_title }}
+            </h2>
+
+
+            {% if page.cta_button_url %}
+
+                <p>
+
+                    <a
+                        href="{{ page.cta_button_url }}"
+                        class="btn btn-primary text-white py-3 px-4"
+                    >
+                        {{ page.cta_button_text }}
+                    </a>
+
+                </p>
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     AGENTS
+========================================================= -->
+
+<div class="section section-5 bg-light">
+
+    <div class="container">
+
+
+        <div class="row justify-content-center text-center mb-5">
+
+            <div class="col-lg-6 mb-5">
+
+                <h2 class="font-weight-bold heading text-primary mb-4">
+                    {{ page.agents_title }}
+                </h2>
+
+
+                <p class="text-black-50">
+                    {{ page.agents_description }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="row">
+
+
+            {% for block in page.agents %}
+
+                {% if block.block_type == "agent" %}
+
+                    {% with agent=block.value %}
+
+                        <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0">
+
+                            <div class="h-100 person">
+
+
+                                {% if agent.image %}
+
+                                    {% image agent.image fill-600x600 class="img-fluid" %}
+
+                                {% endif %}
+
+
+                                <div class="person-contents">
+
+
+                                    <h2 class="mb-0">
+                                        {{ agent.name }}
+                                    </h2>
+
+
+                                    <span class="meta d-block mb-3">
+                                        {{ agent.designation }}
+                                    </span>
+
+
+                                    <p>
+                                        {{ agent.description }}
+                                    </p>
+
+
+                                    <ul class="social list-unstyled list-inline dark-hover">
+
+
+                                        {% if agent.twitter %}
+
+                                            <li class="list-inline-item">
+
+                                                <a href="{{ agent.twitter }}">
+
+                                                    <span class="icon-twitter" aria-label="Twitter"></span>
+
+                                                </a>
+
+                                            </li>
+
+                                        {% endif %}
+
+
+                                        {% if agent.facebook %}
+
+                                            <li class="list-inline-item">
+
+                                                <a href="{{ agent.facebook }}">
+
+                                                    <span class="icon-facebook" aria-label="Facebook"></span>
+
+                                                </a>
+
+                                            </li>
+
+                                        {% endif %}
+
+
+                                        {% if agent.linkedin %}
+
+                                            <li class="list-inline-item">
+
+                                                <a href="{{ agent.linkedin }}">
+
+                                                    <span class="icon-linkedin" aria-label="LinkedIn"></span>
+
+                                                </a>
+
+                                            </li>
+
+                                        {% endif %}
+
+
+                                        {% if agent.instagram %}
+
+                                            <li class="list-inline-item">
+
+                                                <a href="{{ agent.instagram }}">
+
+                                                    <span class="icon-instagram" aria-label="Instagram"></span>
+
+                                                </a>
+
+                                            </li>
+
+                                        {% endif %}
+
+
+                                    </ul>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    {% endwith %}
+
+                {% endif %}
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+
+
+{% block extra_js %}
+
+<script src="{% static 'js/bootstrap-bundle.js' %}"></script>
+<script src="{% static 'js/tinyslider.js' %}"></script>
+<script src="{% static 'js/aos.js' %}"></script>
+<script src="{% static 'js/counter.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+
+{% endblock %}
+```

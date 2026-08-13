@@ -1,0 +1,62 @@
+
+{% load wagtailcore_tags wagtailsettings_tags %}
+{% wagtail_site as current_site %}
+
+
+<header class="">
+    
+
+
+
+    <nav class="site-nav">
+      <div class="container">
+        <div class="menu-bg-wrap">
+          <div class="site-navigation">
+ <a
+            href="/"
+            data-header-logo
+            class="logo m-0 float-start">
+            {{ current_site.site_name|default:"Site name" }}
+        </a>
+ <div class="flex md:hidden items-center gap-4">
+            <button
+                class="z-30 button-menu-toggle"
+                data-mobile-menu-toggle
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-label="Open navigation menu"
+            >
+                <span class="button-menu-toggle__line"></span>
+                <span class="button-menu-toggle__line"></span>
+                <span class="sr-only">Menu</span>
+            </button>
+        </div>
+            <ul
+              class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end"
+            >
+             {% for link in settings.navigation.NavigationSettings.primary_navigation %}
+              <li>
+                {% if link.value.page %}
+                <a  href="{{ link.value.get_url }}"
+                            >
+                                {{ link.value.get_title }}
+                            </a>
+                        {% endif %}
+            </li>
+              {% endfor %}
+            </ul>
+
+            <!-- <a
+              href="#"
+              class="burger light me-auto float-end mt-1 site-menu-toggle js-menu-toggle d-inline-block d-lg-none"
+              data-toggle="collapse"
+              data-target="#main-navbar"
+            >
+              <span></span>
+            </a> -->
+          </div>
+        </div>
+      </div>
+    </nav>
+</header>
+

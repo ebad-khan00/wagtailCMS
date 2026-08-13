@@ -1,0 +1,187 @@
+{% load wagtailimages_tags %}
+{% load agents_tags %}
+
+{% get_agents as agents_section %}
+
+{% if agents_section %}
+
+<div class="section section-5 bg-light">
+
+    <div class="container">
+
+        <!-- SECTION HEADER -->
+        <div class="row justify-content-center text-center mb-5">
+
+            <div class="col-lg-6 mb-5">
+
+                {% if agents_section.title %}
+                    <h2 class="font-weight-bold heading text-primary mb-4">
+                        {{ agents_section.title }}
+                    </h2>
+                {% endif %}
+
+                {% if agents_section.description %}
+                    <p class="text-black-50">
+                        {{ agents_section.description }}
+                    </p>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- AGENTS -->
+        <div class="row">
+
+            {% for agent in agents_section.agents.all %}
+
+                <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0">
+
+                    <div class="h-100 person">
+
+                        <!-- AGENT IMAGE -->
+                        {% if agent.image %}
+
+                            {% image agent.image fill-600x600 class="img-fluid" %}
+
+                        {% endif %}
+
+
+                        <div class="person-contents">
+
+                            <!-- NAME -->
+                            {% if agent.name %}
+
+                                <h2 class="mb-0">
+                                    {{ agent.name }}
+                                </h2>
+
+                            {% endif %}
+
+
+                            <!-- DESIGNATION -->
+                            {% if agent.designation %}
+
+                                <span class="meta d-block mb-3">
+                                    {{ agent.designation }}
+                                </span>
+
+                            {% endif %}
+
+
+                            <!-- DESCRIPTION -->
+                            {% if agent.description %}
+
+                                <p>
+                                    {{ agent.description }}
+                                </p>
+
+                            {% endif %}
+
+
+                            <!-- SOCIAL LINKS -->
+                            <ul class="social list-unstyled list-inline dark-hover">
+
+
+                                <!-- TWITTER -->
+                                {% if agent.twitter %}
+
+                                    <li class="list-inline-item">
+
+                                        <a
+                                            href="{{ agent.twitter }}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label="Twitter"
+                                        >
+                                            <span class="icon-twitter"></span>
+                                        </a>
+
+                                    </li>
+
+                                {% endif %}
+
+
+                                <!-- FACEBOOK -->
+                                {% if agent.facebook %}
+
+                                    <li class="list-inline-item">
+
+                                        <a
+                                            href="{{ agent.facebook }}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label="Facebook"
+                                        >
+                                            <span class="icon-facebook"></span>
+                                        </a>
+
+                                    </li>
+
+                                {% endif %}
+
+
+                                <!-- LINKEDIN -->
+                                {% if agent.linkedin %}
+
+                                    <li class="list-inline-item">
+
+                                        <a
+                                            href="{{ agent.linkedin }}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label="LinkedIn"
+                                        >
+                                            <span class="icon-linkedin"></span>
+                                        </a>
+
+                                    </li>
+
+                                {% endif %}
+
+
+                                <!-- INSTAGRAM -->
+                                {% if agent.instagram %}
+
+                                    <li class="list-inline-item">
+
+                                        <a
+                                            href="{{ agent.instagram }}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label="Instagram"
+                                        >
+                                            <span class="icon-instagram"></span>
+                                        </a>
+
+                                    </li>
+
+                                {% endif %}
+
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <div class="col-12 text-center">
+                    <p class="text-black-50">
+                        No agents available.
+                    </p>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endif %}

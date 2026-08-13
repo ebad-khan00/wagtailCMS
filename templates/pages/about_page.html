@@ -1,0 +1,607 @@
+{% extends "base_page.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'css/tinyslider.css' %}">
+<link rel="stylesheet" href="{% static 'css/aos.css' %}">
+<link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css' %}">
+<link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/theme.css' %}">
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+ebad
+<div
+    class="hero page-inner overlay"
+    {% if page.hero_image %}
+        {% image page.hero_image fill-1920x700 as hero_img %}
+        style="background-image: url('{{ hero_img.url }}');"
+    {% else %}
+        style="background-image: url('{% static 'images/hero_bg_3.jpg' %}');"
+    {% endif %}
+>
+
+    <div class="container">
+
+        <div class="row justify-content-center align-items-center">
+
+            <div class="col-lg-9 text-center mt-5">
+
+                <h1 class="heading" data-aos="fade-up">
+                    {{ page.hero_title }}
+                </h1>
+
+                <nav
+                    aria-label="breadcrumb"
+                    data-aos="fade-up"
+                    data-aos-delay="200"
+                >
+
+                    <ol class="breadcrumb text-center justify-content-center">
+
+                        <li class="breadcrumb-item">
+                            <a href="/">
+                                Home
+                            </a>
+                        </li>
+
+                        <li
+                            class="breadcrumb-item active text-white-50"
+                            aria-current="page"
+                        >
+                            {{ page.title }}
+                        </li>
+
+                    </ol>
+
+                </nav>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     ABOUT CONTENT
+========================================================= -->
+
+<div class="section">
+
+    <div class="container">
+
+        <div class="row text-left mb-5">
+
+            <div class="col-12">
+
+                <h2 class="font-weight-bold heading text-primary mb-4">
+                    {{ page.about_title }}
+                </h2>
+
+            </div>
+
+
+            <!-- LEFT CONTENT -->
+
+            <div class="col-lg-6">
+
+                {% if page.about_content_left %}
+
+                    <div class="text-black-50">
+                        {{ page.about_content_left|richtext }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- RIGHT CONTENT -->
+
+            <div class="col-lg-6">
+
+                {% if page.about_content_right %}
+
+                    <div class="text-black-50">
+                        {{ page.about_content_right|richtext }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     FIRST FEATURE SECTION
+========================================================= -->
+
+<div class="section pt-0">
+
+    <div class="container">
+
+        <div class="row justify-content-between mb-5">
+
+
+            <!-- IMAGE -->
+
+            <div class="col-lg-7 mb-5 mb-lg-0 order-lg-2">
+
+                {% if page.first_feature_image %}
+
+                    {% image page.first_feature_image width-1000 as feature_image %}
+
+                    <div class="img-about dots">
+
+                        <img
+                            src="{{ feature_image.url }}"
+                            alt="{{ page.about_title }}"
+                            class="img-fluid"
+                        >
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- FEATURES -->
+
+            <div class="col-lg-4">
+
+                {% for feature in page.first_features %}
+
+                    <div class="d-flex feature-h">
+
+                        {% if feature.value.icon %}
+
+                            <span class="wrap-icon me-3">
+
+                                <span class="{{ feature.value.icon }}"></span>
+
+                            </span>
+
+                        {% endif %}
+
+
+                        <div class="feature-text">
+
+                            <h3 class="heading">
+                                {{ feature.value.title }}
+                            </h3>
+
+                            {% if feature.value.description %}
+
+                                <p class="text-black-50">
+                                    {{ feature.value.description }}
+                                </p>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     SECOND FEATURE SECTION
+========================================================= -->
+
+<div class="section pt-0">
+
+    <div class="container">
+
+        <div class="row justify-content-between mb-5">
+
+
+            <!-- IMAGE -->
+
+            <div class="col-lg-7 mb-5 mb-lg-0">
+
+                {% if page.second_feature_image %}
+
+                    {% image page.second_feature_image width-1000 as feature_image %}
+
+                    <div class="img-about dots">
+
+                        <img
+                            src="{{ feature_image.url }}"
+                            alt="{{ page.about_title }}"
+                            class="img-fluid"
+                        >
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- FEATURES -->
+
+            <div class="col-lg-4">
+
+                {% for feature in page.second_features %}
+
+                    <div class="d-flex feature-h">
+
+                        {% if feature.value.icon %}
+
+                            <span class="wrap-icon me-3">
+
+                                <span class="{{ feature.value.icon }}"></span>
+
+                            </span>
+
+                        {% endif %}
+
+
+                        <div class="feature-text">
+
+                            <h3 class="heading">
+                                {{ feature.value.title }}
+                            </h3>
+
+                            {% if feature.value.description %}
+
+                                <p class="text-black-50">
+                                    {{ feature.value.description }}
+                                </p>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     IMAGE GALLERY
+========================================================= -->
+
+{% if page.gallery_images %}
+
+<div class="section">
+
+    <div class="container">
+
+        <div class="row">
+
+            {% for gallery_item in page.gallery_images %}
+
+                {% if gallery_item.value.image %}
+
+                    <div
+                        class="col-md-4"
+                        data-aos="fade-up"
+                        data-aos-delay="{{ forloop.counter0 }}00"
+                    >
+
+                        {% image gallery_item.value.image width-700 as gallery_image %}
+
+                        <img
+                            src="{{ gallery_image.url }}"
+                            alt="{{ gallery_item.value.alt_text|default:'About image' }}"
+                            class="img-fluid"
+                        >
+
+                    </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- =================================================
+             STATISTICS
+        ================================================== -->
+
+        {% if page.statistics %}
+
+        <div class="row section-counter mt-5">
+
+            {% for statistic in page.statistics %}
+
+                <div
+                    class="col-6 col-sm-6 col-md-6 col-lg-3"
+                    data-aos="fade-up"
+                    data-aos-delay="{{ forloop.counter0 }}00"
+                >
+
+                    <div class="counter-wrap mb-5 mb-lg-0">
+
+                        <span class="number">
+
+                            <span class="countup text-primary">
+                                {{ statistic.value.number }}
+                            </span>
+
+                        </span>
+
+                        <span class="caption text-black-50">
+                            {{ statistic.value.label }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endif %}
+
+
+<!-- =========================================================
+     TEAM
+========================================================= -->
+
+{% if page.team_members %}
+
+<div class="section sec-testimonials bg-light">
+
+    <div class="container">
+
+
+        <!-- TEAM HEADER -->
+
+        <div class="row mb-5 align-items-center">
+
+            <div class="col-md-6">
+
+                <h2 class="font-weight-bold heading text-primary mb-4 mb-md-0">
+                    {{ page.team_title }}
+                </h2>
+
+            </div>
+
+
+            <div class="col-md-6 text-md-end">
+
+                <div id="testimonial-nav">
+
+                    <span
+                        class="prev"
+                        data-controls="prev"
+                        role="button"
+                        tabindex="0"
+                    >
+                        Prev
+                    </span>
+
+                    <span
+                        class="next"
+                        data-controls="next"
+                        role="button"
+                        tabindex="0"
+                    >
+                        Next
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TEAM SLIDER -->
+
+        <div class="testimonial-slider-wrap">
+
+            <div class="testimonial-slider">
+
+                {% for member in page.team_members %}
+
+                    <div class="item">
+
+                        <div class="testimonial">
+
+
+                            <!-- MEMBER IMAGE -->
+
+                            {% if member.value.image %}
+
+                                {% image member.value.image fill-300x300 as member_image %}
+
+                                <img
+                                    src="{{ member_image.url }}"
+                                    alt="{{ member.value.name }}"
+                                    class="img-fluid rounded-circle w-25 mb-4"
+                                >
+
+                            {% endif %}
+
+
+                            <!-- MEMBER NAME -->
+
+                            <h3 class="h5 text-primary">
+                                {{ member.value.name }}
+                            </h3>
+
+
+                            <!-- MEMBER POSITION -->
+
+                            {% if member.value.position %}
+
+                                <p class="text-black-50">
+                                    {{ member.value.position }}
+                                </p>
+
+                            {% endif %}
+
+
+                            <!-- MEMBER DESCRIPTION -->
+
+                            {% if member.value.description %}
+
+                                <p>
+                                    {{ member.value.description }}
+                                </p>
+
+                            {% endif %}
+
+
+                            <!-- SOCIAL LINKS -->
+
+                            <ul class="social list-unstyled list-inline dark-hover">
+
+
+                                {% if member.value.twitter_url %}
+
+                                    <li class="list-inline-item">
+
+                                        <a
+                                            href="{{ member.value.twitter_url }}"
+                                            aria-label="Twitter"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+
+                                            <span class="icon-twitter"></span>
+
+                                        </a>
+
+                                    </li>
+
+                                {% endif %}
+
+
+                                {% if member.value.facebook_url %}
+
+                                    <li class="list-inline-item">
+
+                                        <a
+                                            href="{{ member.value.facebook_url }}"
+                                            aria-label="Facebook"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+
+                                            <span class="icon-facebook"></span>
+
+                                        </a>
+
+                                    </li>
+
+                                {% endif %}
+
+
+                                {% if member.value.linkedin_url %}
+
+                                    <li class="list-inline-item">
+
+                                        <a
+                                            href="{{ member.value.linkedin_url }}"
+                                            aria-label="LinkedIn"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+
+                                            <span class="icon-linkedin"></span>
+
+                                        </a>
+
+                                    </li>
+
+                                {% endif %}
+
+
+                                {% if member.value.instagram_url %}
+
+                                    <li class="list-inline-item">
+
+                                        <a
+                                            href="{{ member.value.instagram_url }}"
+                                            aria-label="Instagram"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+
+                                            <span class="icon-instagram"></span>
+
+                                        </a>
+
+                                    </li>
+
+                                {% endif %}
+
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+{% include "components/streamfield/blocks/agents.html" %}
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script src="{% static 'js/bootstrap-bundle.js' %}"></script>
+<script src="{% static 'js/tinyslider.js' %}"></script>
+<script src="{% static 'js/aos.js' %}"></script>
+<script src="{% static 'js/counter.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+
+{% endblock %}
