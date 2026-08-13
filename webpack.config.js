@@ -21,15 +21,30 @@ const options = {
     },
     plugins: [
         new CopyPlugin({
-            patterns: [
-                // Copy images to be referenced directly by Django to the "images" subfolder in static files.
-                // Ignore CSS background images as these are handled separately below
-               {
-                from: path.resolve(`./static_src/images`),
-                to: path.resolve(`./static_compiled/images`),
-               }
-            ],
-        }),
+    patterns: [
+        {
+         from: path.resolve(`./static_src/images`),
+         to: path.resolve(`./static_compiled/images`),
+        },
+        // Vendor stylesheets (bootstrap, aos, tinyslider, theme, etc.) referenced
+        // directly by templates via {% static 'css/...' %} rather than imported
+        // into main.scss.
+        {
+         from: path.resolve(`./static_src/styles`),
+         to: path.resolve(`./static_compiled/css`),
+        },
+        // Vendor scripts referenced directly by templates via {% static 'js/...' %}
+        // rather than imported into main.js. main.js and its imported components are
+        // excluded since webpack already emits those as js/main.js.
+        {
+         from: path.resolve(`./static_src/javascript`),
+         to: path.resolve(`./static_compiled/js`),
+         globOptions: {
+             ignore: ['**/main.js', '**/components/**'],
+         },
+        }
+    ],
+}),
         new MiniCssExtractPlugin({
             filename: 'css/[name].css',
         }),
