@@ -3,6 +3,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const sass = require('sass');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const options = {
     entry: {
@@ -109,6 +110,13 @@ const webpackConfig = (environment, argv) => {
     const isProduction = argv.mode === 'production';
 
     options.mode = isProduction ? 'production' : 'development';
+        if (isProduction) {
+        // Minify the vendor CSS files copied in by CopyPlugin (theme.css, bootstrap.css,
+        // etc.) alongside the default JS minimizer, which webpack's `...` keeps enabled.
+        options.optimization = {
+            minimizer: ['...', new CssMinimizerPlugin()],
+        };
+    }
 
     if (!isProduction) {
         // https://webpack.js.org/configuration/stats/
