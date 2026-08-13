@@ -118,6 +118,7 @@ if not DATABASE_URL:
         "postgresql://neondb_owner:npg_8hzsItmfo0Hv@ep-late-rice-awux0xa7-pooler.c-12.us-east-1.aws.neon.tech/neondb?channel_binding=require&sslmode=require"
     )
 
+
 DATABASES = {
     "default": dj_database_url.config(
         default=DATABASE_URL,
