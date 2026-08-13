@@ -111,9 +111,16 @@ WSGI_APPLICATION = "myproject.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/stable/ref/settings/#databases
 
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
+if not DATABASE_URL:
+    raise ValueError(
+        "postgresql://neondb_owner:npg_8hzsItmfo0Hv@ep-late-rice-awux0xa7-pooler.c-12.us-east-1.aws.neon.tech/neondb?channel_binding=require&sslmode=require"
+    )
+
 DATABASES = {
     "default": dj_database_url.config(
-        default="sqlite:///" + os.path.join(BASE_DIR, "db.sqlite3"),
+        default=DATABASE_URL,
         conn_max_age=600,
         conn_health_checks=True,
     )
