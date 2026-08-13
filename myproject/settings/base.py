@@ -15,8 +15,12 @@ import dj_database_url
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-if "SECRET_KEY" in os.environ:
-    SECRET_KEY = os.environ["SECRET_KEY"]
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
+if not SECRET_KEY:
+    raise ValueError(
+        "7@r1=i^4zt*083+13__h)036wat1_ldfp2m_v*3b=e$i4%y8)!"
+    )
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 SEO_NOINDEX = os.environ.get("SEO_NOINDEX", "False").lower() == "true"
