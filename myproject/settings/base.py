@@ -15,12 +15,8 @@ import dj_database_url
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
-
-if not SECRET_KEY:
-    raise ValueError(
-        "7@r1=i^4zt*083+13__h)036wat1_ldfp2m_v*3b=e$i4%y8)!"
-    )
+if "SECRET_KEY" in os.environ:
+    SECRET_KEY = os.environ["SECRET_KEY"]
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 SEO_NOINDEX = os.environ.get("SEO_NOINDEX", "False").lower() == "true"
@@ -111,17 +107,9 @@ WSGI_APPLICATION = "myproject.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/stable/ref/settings/#databases
 
-DATABASE_URL = os.environ.get("DATABASE_URL")
-
-if not DATABASE_URL:
-    raise ValueError(
-        "postgresql://neondb_owner:npg_8hzsItmfo0Hv@ep-late-rice-awux0xa7-pooler.c-12.us-east-1.aws.neon.tech/neondb?channel_binding=require&sslmode=require"
-    )
-
-
 DATABASES = {
     "default": dj_database_url.config(
-        default=DATABASE_URL,
+        default="sqlite:///" + os.path.join(BASE_DIR, "db.sqlite3"),
         conn_max_age=600,
         conn_health_checks=True,
     )
