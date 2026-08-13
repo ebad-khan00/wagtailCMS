@@ -10314,7 +10314,7 @@ nav[aria-label="breadcrumb"] li:before {
   transition: all 0.3s;
   color: #fff; }
 
-.contact-info h4, .contact-info .h4 {
+.contact-info h4, .contact-info .h4, .contact-info h1, .contact-info h2, .contact-info h3   {
   font-size: 18px;
   padding: 0 0 0 60px; }
 
