@@ -1,6 +1,6 @@
 from .base import *  # noqa
 
-DEBUG = False
+DEBUG = True
 
 
 # Security configuration
