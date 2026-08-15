@@ -46,7 +46,20 @@ const options = {
          globOptions: {
              ignore: ['**/main.js', '**/components/**'],
          },
+        },
+          // IcoMoon icon font kit referenced directly by templates via
+        // {% static 'fonts/icomoon/...' %} rather than imported into main.scss.
+        {
+         from: path.resolve(`./static_src/fonts/icomoon`),
+         to: path.resolve(`./static_compiled/fonts/icomoon`),
+        },
+        // Flaticon icon font kit referenced directly by templates via
+        // {% static 'fonts/flaticon/font/...' %} rather than imported into main.scss.
+        {
+         from: path.resolve(`./static_src/fonts/flaticon/font`),
+         to: path.resolve(`./static_compiled/fonts/flaticon/font`),
         }
+        
     ],
 }),
         new MiniCssExtractPlugin({
